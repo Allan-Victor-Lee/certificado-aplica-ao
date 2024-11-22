@@ -1,0 +1,296 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    /* Garante que os elementos filhos possam ser posicionados em relação ao body */
+}
+
+.titulo {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    width: 100%;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.pokepedia-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 150px);
+    /* Colunas de 150px */
+    gap: 15px;
+    justify-content: center;
+    /* Centraliza as cartas horizontalmente */
+    width: 100%;
+    max-width: 1000px;
+}
+
+.card {
+    width: 150px;
+    /* A largura da carta */
+    height: 200px;
+    /* A altura da carta */
+    perspective: 1000px;
+    /* Perspectiva para a rotação 3D */
+    position: relative;
+    /* Para o posicionamento da rotação */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+    /* Suaviza a transição de opacidade */
+    border-radius: 10px;
+    border: solid black 1px;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+    /* Rotação de 180 graus */
+}
+
+.front,
+.back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    /* Oculta a face oposta durante a rotação */
+    border-radius: 10px;
+    /* Bordas arredondadas */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.5s ease;
+    /* Suaviza a transição de opacidade */
+}
+
+.front {
+    background-color: #fff;
+    /* Cor de fundo da frente */
+}
+
+.back {
+    background-color: #f8f9fa;
+    /* Cor de fundo de trás */
+    transform: rotateY(180deg);
+    /* Gira a face de trás */
+    opacity: 0;
+    /* Começa invisível */
+}
+
+.card.flipped .back {
+    opacity: 1;
+    /* Exibe a parte de trás quando a carta está virada */
+}
+
+.card.flipped .front {
+    opacity: 0;
+    /* Esconde a parte da frente quando a carta está virada */
+}
+
+.temp-card {
+    position: absolute;
+    /* Para sobrepor a carta original */
+    z-index: 1;
+    /* Garante que a carta temporária fique acima da carta original */
+    width: 150px;
+    /* Largura igual à carta original */
+    height: 200px;
+    /* Altura igual à carta original */
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-left: 4px;
+
+    opacity: 0;
+    /* Começa invisível */
+    transition: opacity 0.5s ease;
+    /* Suaviza a transição de opacidade */
+    border: solid black 1px;
+}
+
+/* Adiciona a classe para tornar a carta temporária visível */
+.temp-card.visible {
+    opacity: 1;
+    /* Torna a carta temporária visível */
+}
+
+
+.casa:hover {
+    transform: scale(1.05);
+    /* Aumenta a escala suavemente ao passar o mouse */
+}
+
+.pokemon-img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.pokemon-img:hover {
+    transform: scale(1.1);
+    /* Aumenta o tamanho da imagem ao passar o mouse */
+}
+
+.pokemon-id {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.pokemon-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.pokemon-type {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+.pokemon-weight {
+    margin-top: 10px;
+}#background-video {
+    position: fixed;
+    /* Fixa o vídeo na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Cobre toda a área disponível */
+    z-index: -1;
+    /* Coloca o vídeo atrás de outros elementos */
+}
+
+/* Menu Fixo Ajustado */
+
+
+#search-bar {
+    width: 300px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s;
+}
+
+#search-bar:focus {
+    box-shadow: 0 0 5px #007bff;
+    outline: none;
+}
+
+#search-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    margin-left: 5px;
+}.menu-fixo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding: 10px 20px;
+    background-color: rgba(52, 58, 64, 0.8);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.pokedex-gif {
+    width: 100px;
+    height: auto;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.menu a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.menu a:hover,
+.dropdown:hover .dropbtn {
+background-color: rgba(244, 255, 92, 0.979); /* Translucidez inicial */
+color: rgb(0, 0, 0);
+border: 2px solid rgba(255, 255, 255, 0.6); /* Borda delicada */
+border-radius: 5px; /* Bordas arredondadas para um visual mais suave */
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Leve sombra para destacar */
+transform: scale(1.1); /* Aumenta o tamanho do item */
+transition: background-color 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s, transform 0.3s; /* Suaviza a transição */
+}
+
+/* Estilos para o dropdown */
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 17px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 24px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    margin-top: -2px;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 17px;
+    width: 200px;
+    height: 40px;
+}
+
+.dropdown-content a:hover {
+    background-color: #1187c6;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre os desenvolvedores:</title>
+    <link rel="icon"
+        href="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/029b8bd9-cb5a-41e4-9c7e-ee516face9bb/dayo3ow-7ac86c31-8b2b-4810-89f2-e6134caf1f2d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAyOWI4YmQ5LWNiNWEtNDFlNC05YzdlLWVlNTE2ZmFjZTliYlwvZGF5bzNvdy03YWM4NmMzMS04YjJiLTQ4MTAtODlmMi1lNjEzNGNhZjFmMmQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ooubhxjHp9PIMhVxvCFHziI6pxDAS8glXPWenUeomWs">
+    <style>
+        /* Estilo da Seção Sobre Nós */
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-image: url("fundocontato.png");
+            background-size: cover;
+            /* Cobre toda a área disponível */
+            background-position: center;
+            /* Centraliza a imagem */
+            flex-direction: column;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .sobre-nos-container {
+            max-width: 850px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+
+        }
+
+        .sobreosdev {
+
+            margin-top: 100px;
+        }
+
+        .membro-equipe {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            border-radius: solid black 1px;
+        }
+
+        .membro-equipe:last-child {
+            border-bottom: none;
+            /* Remove a borda do último membro */
+        }
+
+        .membro-equipe img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border-radius: solid black 1px;
+        }
+
+        .pokemon-representativo img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-top: 10px;
+            cursor: help;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .membro-equipe h3 {
+            font-size: 1.5em;
+            color: #333;
+            margin: 10px 0 5px;
+        }
+
+        .descricao,
+        .curiosidade {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .curiosidade {
+            font-style: italic;
+            color: #007bff;
+        }
+
+        .pokemon-representativo {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #00796b;
+        }
+
+        .menu-fixo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            padding: 10px 20px;
+            background-color: rgba(52, 58, 64, 0.8);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .pokedex-gif {
+            width: 100px;
+            height: auto;
+            margin-right: 5px;
+            margin-left: 10px;
+        }
+
+        .menu a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        .menu a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgba(244, 255, 92, 0.979);
+            /* Translucidez inicial */
+            color: rgb(0, 0, 0);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            /* Borda delicada */
+            border-radius: 5px;
+            /* Bordas arredondadas para um visual mais suave */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* Leve sombra para destacar */
+            transform: scale(1.1);
+            /* Aumenta o tamanho do item */
+            transition: background-color 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s, transform 0.3s;
+            /* Suaviza a transição */
+        }
+
+        /* Estilos para o dropdown */
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 17px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 24px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            margin-top: -2px;
+            border-radius: 5px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            float: none;
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-size: 17px;
+            width: 200px;
+            height: 40px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1187c6;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            border-radius: 5px;
+        }
+
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: #007bff;
+            transform: scaleX(0);
+            transition: transform 1.5s ease;
+            z-index: 20;
+        }
+
+        .loading {
+            transform: scaleX(1);
+        }
+
+        .button1 {
+
+            color: #333;
+            background-color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-fixo">
+        <div class="menu-logo" id="loading-link">
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/029b8bd9-cb5a-41e4-9c7e-ee516face9bb/dayo3ow-7ac86c31-8b2b-4810-89f2-e6134caf1f2d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAyOWI4YmQ5LWNiNWEtNDFlNC05YzdlLWVlNTE2ZmFjZTliYlwvZGF5bzNvdy03YWM4NmMzMS04YjJiLTQ4MTAtODlmMi1lNjEzNGNhZjFmMmQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ooubhxjHp9PIMhVxvCFHziI6pxDAS8glXPWenUeomWs"
+                alt="Gif de Pokébola girando" class="pokedex-gif">
+        </div>
+
+        <div class="menu">
+            <div class="dropdown">
+                <button class="dropbtn">Home</button>
+                <div class="dropdown-content">
+                    <a href="#" class="button1 " onclick="startLoading('index.html')">Pesquisa Pokémon</a>
+                    <a href="#" class="button1 " onclick="startLoading('escolhaquiz.html')">Quiz</a>
+                    <a href="#" class="button1 " onclick="startLoading('informaçoes.html')">informações</a>
+                </div>
+            </div>
+            <a href="#" class="button2 " onclick="startLoading('contato.html')">Contato</a>
+            <a href="#" class="button2 " onclick="startLoading('quemsomosnos.html')">Quem somos</a>
+
+        </div>
+    </div>
+    <div class="loading-bar" id="loading-bar"></div>
+
+    <div class="sobre-nos-container">
+        <h2 style="text-align: center; color: #333;" class="sobreosdev">Sobre os desenvolvedores:</h2>
+
+        <!-- Membro 1 -->
+        <div class="membro-equipe">
+            <img src="marcelo.jpeg" alt="Foto do Membro 1">
+            <h3>Marcelo Barreto </h3>
+            <p class="descricao">Fala galerinha do youtube, tamo aqui pra mais um video nesse canal e pra quem caiu de
+                paraquedas nesse video,
+                me nome é Marcelo Barreto,tenho 17 anos, curto playar um Lolzinho, Valorant aquele Minezin dos crias..
+            </p>
+            <p class="curiosidade">Curiosidade:Já gastei mais do que gostaria de saber com video games 😥 (rs).</p>
+            <div class="pokemon-representativo">
+                <p>um pokémon que me representa é :</p>
+                <img src="marcelopokemon.png" alt="Pokémon do Membro 2" class="pokemon-img" data-audio="ponyta.mp3">
+                <p>porque eu admiro ela, por sua beleza e força ( e também porque parece o cavalo do mine com o topete
+                    do Beckham)</p>
+                <p class="descricao"><b>Email:</b> marcelobarreto@gmail.com</p>
+                <p class="descricao">telefone: (11)93200-0000</p>
+            </div>
+        </div>
+
+        <!-- Membro 2 -->
+        <div class="membro-equipe">
+            <img src="maria.jpeg" alt="Foto do Membro 2">
+            <h3>Maria Helena</h3>
+            <p class="descricao">Ohayooo🤗, my name is Maria Helena and i have 17 aninhos🌟 eu gosto de nadar, escutar
+                musicas em inglês, falo inglês,
+                tenho um coelho de estimação e um porquinho-da-india,gosto de dançar,cantar,comer e milhões de outras
+                coisas que nao caberiam aqui.</p>
+            <p class="curiosidade">Curiosidade: Uma curiosidade minha é que eu gosto de comer pão com sorvete<br>(não me
+                julguem, é muito bom táh🫠).</p>
+            <div class="pokemon-representativo">
+                <p>um pokémon que me representa é :</p>
+                <img src="mariapokemon.png" alt="Pokémon do Membro 2" class="pokemon-img" data-audio="pikachu.mp3">
+                <p>porque eu gosto dele desde criança,antes mesmo de ter descuberto que ele era um pokémon,gosto da voz
+                    dele,do jeito fofinho dele
+                    e amo o rabinho de trovaõ dele.
+                </p>
+                <p class="descricao"><b>Email:</b> mariahelena@gmail.com</p>
+                <p class="descricao">telefone: (11)94236-0000</p>
+            </div>
+        </div>
+
+        <!-- Membro 3 -->
+        <div class="membro-equipe">
+            <img src="allan.jpeg" alt="Foto do Membro 3">
+            <h3>Allan Victor</h3>
+
+            <p class="descricao">Oiiii, meu nome é Allan Victor, todos me chamam de Allan na escola.
+                tenho 16 anos de idade e gosto de aprender coisas novas: um novo idioma, ler livros, jogar futebol...
+                gosto de desafios.
+            </p>
+            <p class="curiosidade">Curiosidade: Uma curiosidade sobre mim, é que eu amo ouvir músicas em frances.</p>
+            <div class="pokemon-representativo">
+                <p>um pokémon que me representa é :</p>
+                <img src="allanpokemon.png" alt="Pokémon do Membro 2" class="pokemon-img" data-audio="lunala.mp3">
+                <p> por sua coragem, força, garra, dedicação e lealdade. </p>
+                <p class="descricao"><b>Email:</b> allanvictorjesus@gmail.com</p>
+                <p class="descricao">telefone: (11)96452-0000</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('loading-link').addEventListener('click', function () {
+            window.location.href = 'loadingquemsomosnos.html'; // Redireciona para loading.html ao clicar na div
+        });
+        // Script para tocar o som ao clicar na imagem do Pokémon
+        document.querySelectorAll('.pokemon-img').forEach(img => {
+            img.addEventListener('click', () => {
+                const audioFile = img.getAttribute('data-audio');
+                const audio = new Audio(audioFile);
+                audio.play();
+            });
+        });
+
+    </script>
+    <script>
+        function startLoading(quizUrl) {
+            // Exibe a barra de carregamento
+            const loadingBar = document.getElementById('loading-bar');
+            loadingBar.classList.add('loading');
+
+            // Redireciona após 3 segundo
+            setTimeout(() => {
+                window.location.href = quizUrl;
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

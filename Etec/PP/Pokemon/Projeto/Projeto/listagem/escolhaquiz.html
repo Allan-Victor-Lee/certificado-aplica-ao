@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecione a Dificuldade</title>
+    <style>
+        /* Estilo do fundo e da página */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("image.png");
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Container principal para centralizar o conteúdo */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Container para centralizar a dificuldade */
+        .difficulty-container {
+            text-align: center;
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), 0 6px 6px rgba(0, 0, 0, 0.22);
+            width: 80%;
+            max-width: 400px;
+            border: 2px solid #000000;
+            margin-bottom: 100px;
+        }
+
+        /* Título da página */
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Novo título acima do container */
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            background: #afa3a3;
+            text-align: center;
+            margin-bottom: 100px;
+            border-radius: 10px;
+            border: solid 1px;
+            margin-top: 40px;
+        }
+
+        /* Botões de dificuldade */
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 1.2rem;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Diferenciação de cores dos botões */
+        .easy-button {
+            background-color: #28a745;
+            border: solid 1px black;
+        }
+
+        .easy-button:hover {
+            background-color: #218838;
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+            border: solid 1px black;
+        }
+
+        .hard-button {
+            background-color: #dc3545;
+            border: solid 1px black;
+        }
+
+        .hard-button:hover {
+            background-color: #c82333;
+            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+            border: solid 1px black;
+        }
+
+        /* Menu fixo */
+        .menu-fixo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            padding: 10px 20px;
+            background-color: rgba(52, 58, 64, 0.8);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .pokedex-gif {
+            width: 100px;
+            height: auto;
+            margin-right: 5px;
+            margin-left: 10px;
+        }
+
+        .menu a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        .menu a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgba(244, 255, 92, 0.979);
+            /* Translucidez inicial */
+            color: rgb(0, 0, 0);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            /* Borda delicada */
+            border-radius: 5px;
+            /* Bordas arredondadas para um visual mais suave */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* Leve sombra para destacar */
+            transform: scale(1.1);
+            /* Aumenta o tamanho do item */
+            transition: background-color 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s, transform 0.3s;
+            /* Suaviza a transição */
+        }
+
+        /* Estilos para o dropdown */
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 17px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 24px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            margin-top: -2px;
+            border-radius: 5px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            float: none;
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-size: 17px;
+            width: 200px;
+            height: 40px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1187c6;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Estilos para a barra de carregamento */
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: #007bff;
+            transform: scaleX(0);
+            transition: transform 1.5s ease;
+            z-index: 20;
+        }
+
+        .loading {
+            transform: scaleX(1);
+        }
+
+        .button1 {
+            color: #333;
+            background-color: #333;
+        }.help-button {
+            background-color: #ffc107;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            left: 5px;
+            top: -1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border: solid 2px;
+        }
+
+        /* Estilo do modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            margin-top: 10px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-top: 280px;
+            border: solid 2px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }.textin{
+            padding-bottom: 20px;
+            font-size: 20px;
+            color: #000000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-fixo">
+        <div class="menu-logo" id="loading-link">
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/029b8bd9-cb5a-41e4-9c7e-ee516face9bb/dayo3ow-7ac86c31-8b2b-4810-89f2-e6134caf1f2d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAyOWI4YmQ5LWNiNWEtNDFlNC05YzdlLWVlNTE2ZmFjZTliYlwvZGF5bzNvdy03YWM4NmMzMS04YjJiLTQ4MTAtODlmMi1lNjEzNGNhZjFmMmQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ooubhxjHp9PIMhVxvCFHziI6pxDAS8glXPWenUeomWs"
+                alt="Gif de Pokébola girando" class="pokedex-gif">
+        </div>
+        <div class="menu">
+            <div class="dropdown">
+                <button class="dropbtn">Home</button>
+                <div class="dropdown-content">
+                    <a href="#" class="button1 " onclick="startLoading('index.html')">Pesquisa Pokémon</a>
+                    <a href="#" class="button1 " onclick="startLoading('escolhaquiz.html')">Quiz</a>
+                    <a href="#" class="button1 " onclick="startLoading('informaçoes.html')">Informações</a>
+                </div>
+            </div>
+            <a href="#" class="button2 " onclick="startLoading('contato.html')">Contato</a>
+            <a href="#" class="button2 " onclick="startLoading('quemsomosnos.html')">Quem somos</a>
+        </div> 
+    </div>
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Modos de Dificuldade</h2>
+            <p class="textin"><strong>Fácil:</strong> Neste modo, você terá mais dicas e um tempo maior para responder.</p>
+            <p class="textin"> <strong>Difícil:</strong> Aqui, as dicas são limitadas e o tempo para responder é menor.</p>
+        </div>
+    </div>
+    <div class="loading-bar" id="loading-bar"></div>
+
+    <!-- Container principal para centralizar o conteúdo -->
+    <div class="main-container">
+        <!-- Novo título acima do container de opções -->
+        <h2>&nbsp Bem-vindo ao Quiz Pokémon, escolha a dificuldade que deseja:&nbsp</h2>
+
+        <div class="difficulty-container">
+            <h1>Selecione a Dificuldade:</h1>
+            <a href="#" class="button easy-button" onclick="startLoading('quizfacil.html')">Fácil</a>
+  <a href="#" class="button hard-button" onclick="startLoading('quizdificil.html')">Difícil</a>
+  <button class="help-button" id="help-button">?</button> </div>
+    </div>
+
+    <script>
+        function startLoading(page) {
+            const loadingBar = document.getElementById('loading-bar');
+            loadingBar.classList.add('loading');
+            setTimeout(() => {
+                window.location.href = page;
+            }, 1500);
+        }
+    </script>
+     <script>
+        // Modal de ajuda
+        var helpModal = document.getElementById("helpModal");
+        var helpButton = document.getElementById("help-button");
+        var closeModal = document.getElementsByClassName("close")[0];
+
+        // Exibir modal ao clicar no botão de ajuda
+        helpButton.onclick = function () {
+            helpModal.style.display = "block";
+        }
+
+        // Fechar modal ao clicar na 'x'
+        closeModal.onclick = function () {
+            helpModal.style.display = "none";
+        }
+
+        // Fechar modal ao clicar fora dele
+        window.onclick = function (event) {
+            if (event.target == helpModal) {
+                helpModal.style.display = "none";
+            }
+        }
+        </script>
+</body>
+
+</html>

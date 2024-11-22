@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon"
+        href="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/029b8bd9-cb5a-41e4-9c7e-ee516face9bb/dayo3ow-7ac86c31-8b2b-4810-89f2-e6134caf1f2d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAyOWI4YmQ5LWNiNWEtNDFlNC05YzdlLWVlNTE2ZmFjZTliYlwvZGF5bzNvdy03YWM4NmMzMS04YjJiLTQ4MTAtODlmMi1lNjEzNGNhZjFmMmQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ooubhxjHp9PIMhVxvCFHziI6pxDAS8glXPWenUeomWs">
+    <style>
+        /* Estilos adicionais para a temp-card */
+        .temp-card {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #000000;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            transition: opacity 0.5s ease;
+            border-radius: 10px;
+            /* Transição suave para opacidade */
+        }
+
+        .pokepedia-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 150px);
+            /* Colunas de 150px */
+            gap: 15px;
+            justify-content: center;
+            /* Centraliza as cartas horizontalmente */
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .casa {
+            position: relative;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .card {
+            transition: opacity 0.5s ease;
+            /* Transição suave para opacidade */
+        }
+
+        .pokemon-weight {
+            margin-top: 10px;
+
+        }
+
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: #007bff;
+            transform: scaleX(0);
+            transition: transform 1.5s ease;
+            z-index: 20;
+        }
+
+        .loading {
+            transform: scaleX(1);
+        }
+
+        .button1 {
+
+            color: #333;
+            background-color: #333;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <video autoplay muted loop id="background-video">
+        <source src="fundo.mp4" type="video/mp4">
+        Seu navegador não suporta a tag de vídeo.
+    </video>
+
+    <header>
+        <div class="menu-fixo">
+            <div class="menu-logo" id="loading-link">
+                <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/029b8bd9-cb5a-41e4-9c7e-ee516face9bb/dayo3ow-7ac86c31-8b2b-4810-89f2-e6134caf1f2d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAyOWI4YmQ5LWNiNWEtNDFlNC05YzdlLWVlNTE2ZmFjZTliYlwvZGF5bzNvdy03YWM4NmMzMS04YjJiLTQ4MTAtODlmMi1lNjEzNGNhZjFmMmQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ooubhxjHp9PIMhVxvCFHziI6pxDAS8glXPWenUeomWs"
+                    alt="Gif de Pokébola girando" class="pokedex-gif">
+            </div>
+            <div class="menu-search">
+                <input type="text" id="search-bar" placeholder="Search...">
+                <button id="search-btn">🔍</button>
+            </div>
+            <div class="menu">
+                <div class="dropdown">
+                    <button class="dropbtn">Home</button>
+                    <div class="dropdown-content">
+                        <a href="#" class="button1 " onclick="startLoading('index.html')">Pesquisa Pokémon</a>
+                        <a href="#" class="button1 " onclick="startLoading('escolhaquiz.html')">Quiz</a>
+                        <a href="#" class="button1 " onclick="startLoading('informaçoes.html')">informações</a>
+                    </div>
+                </div>
+                <a href="#" class="button2 " onclick="startLoading('contato.html')">Contato</a>
+                <a href="#" class="button2 " onclick="startLoading('quemsomosnos.html')">Quem somos</a>
+
+            </div>
+        </div>
+        <div class="loading-bar" id="loading-bar"></div>
+    </header>
+
+    <h1 class="titulo">Pokédex</h1>
+    <div id="pokepedia" class="pokepedia-container"></div>
+    <script>
+        // Função para mostrar a barra de carregamento e redirecionar
+
+
+
+
+
+
+        document.getElementById('loading-link').addEventListener('click', function () {
+            window.location.href = 'loading.html'; // Redireciona para loading.html ao clicar na div
+        });
+
+
+        let quantidadePokemon = 1;
+        const pokepediaContainer = document.getElementById('pokepedia');
+        const searchBar = document.getElementById('search-bar');
+
+        window.onload = function () {
+            geraridpokemon(quantidadePokemon);
+        };
+
+        async function geraridpokemon(quantidadePokemon) {
+            while (quantidadePokemon <= 1025) {  // Carregar apenas os primeiros 1025 Pokémon
+                const pokemonid = quantidadePokemon;
+                quantidadePokemon++;
+                await puxarpokemon(pokemonid);
+            }
+        }
+
+        async function puxarpokemon(pokemonid) {
+            const API = `https://pokeapi.co/api/v2/pokemon/${pokemonid}`;
+            try {
+                const response = await fetch(API);
+                const data = await response.json();
+
+                const card = document.createElement('div');
+                card.classList.add('casa');
+                card.innerHTML = `
+                    <div class="card">
+                        <div class="front">
+                            <img src="${data.sprites.front_default}" alt="${data.name}" class="pokemon-img">
+                            <p class="pokemon-id">ID: ${data.id}</p>
+                            <p class="pokemon-name">${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</p>
+                        </div>
+                        <div class="back">
+                            <p class="pokemon-weight">Peso: ${(data.weight / 10).toFixed(1)} kg</p> <!-- Peso em kg -->
+                            <p class="pokemon-height">Altura: ${(data.height / 10).toFixed(1)} m</p> <!-- Altura em m -->
+                            <p class="pokemon-type">Tipo: ${data.types.map(type => type.type.name).join(', ')}</p>
+                        </div>
+                    </div>
+                `;
+
+                // Adiciona evento de mouse para flipar a carta
+                card.addEventListener('click', () => flipCard(card));
+                pokepediaContainer.appendChild(card);
+            } catch (error) {
+                pokepediaContainer.innerHTML += '<p>Erro ao exibir o Pokémon</p>';
+            }
+        }
+
+        function flipCard(card) {
+            const cardRect = card.getBoundingClientRect(); // Obtém a posição da carta
+            const tempCard = document.createElement('div');
+            tempCard.classList.add('temp-card', 'visible');
+
+            // Adiciona informações do Pokémon ao card temporário
+            const pokemonName = card.querySelector('.pokemon-name').innerText;
+            const pokemonWeight = card.querySelector('.pokemon-weight').innerText;
+            const pokemonHeight = card.querySelector('.pokemon-height').innerText;
+            const pokemonType = card.querySelector('.pokemon-type').innerText;
+
+            tempCard.innerHTML = `
+                <div class="pokemon-name">${pokemonName}</div>
+                <div class="pokemon-weight">${pokemonWeight}</div>
+                <div class="pokemon-height">${pokemonHeight}</div>
+                <div class="pokemon-type">${pokemonType}</div>
+            `;
+
+            // Define a posição do card temporário
+            tempCard.style.top = `${cardRect.top + window.scrollY}px`;
+            tempCard.style.left = `${cardRect.left + window.scrollX}px`;
+
+            document.body.appendChild(tempCard);
+
+            // Remove o card temporário após alguns segundos
+            setTimeout(() => {
+                tempCard.remove();
+            }, 6000); // Tempo que o card temporário ficará visível (6 segundos)
+
+            // Vira a carta original
+            card.classList.toggle('flipped');
+        }
+
+        // Filtragem em tempo real
+        searchBar.addEventListener('input', () => {
+            const searchValue = searchBar.value.toLowerCase();
+            const pokemons = document.querySelectorAll('.casa');
+            pokemons.forEach(pokemon => {
+                const id = pokemon.querySelector('.pokemon-id').textContent.toLowerCase();
+                const name = pokemon.querySelector('.pokemon-name').textContent.toLowerCase();
+                const type = pokemon.querySelector('.pokemon-type') ? pokemon.querySelector('.pokemon-type').textContent.toLowerCase() : '';
+
+                if (id.includes(searchValue) || name.includes(searchValue) || type.includes(searchValue)) {
+                    pokemon.style.display = 'block';
+                } else {
+                    pokemon.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    <script>
+        function startLoading(quizUrl) {
+            // Exibe a barra de carregamento
+            const loadingBar = document.getElementById('loading-bar');
+            loadingBar.classList.add('loading');
+
+            // Redireciona após 3 segundo
+            setTimeout(() => {
+                window.location.href = quizUrl;
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

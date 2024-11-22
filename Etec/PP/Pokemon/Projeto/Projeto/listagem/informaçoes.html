@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações sobre Pokémon</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon"
+        href="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/029b8bd9-cb5a-41e4-9c7e-ee516face9bb/dayo3ow-7ac86c31-8b2b-4810-89f2-e6134caf1f2d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAyOWI4YmQ5LWNiNWEtNDFlNC05YzdlLWVlNTE2ZmFjZTliYlwvZGF5bzNvdy03YWM4NmMzMS04YjJiLTQ4MTAtODlmMi1lNjEzNGNhZjFmMmQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ooubhxjHp9PIMhVxvCFHziI6pxDAS8glXPWenUeomWs">
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("fundoinformaçoes.avif");
+            background-size: cover;
+            /* Cobre toda a área disponível */
+            background-position: center;
+            /* Centraliza a imagem */
+            flex-direction: column;
+            color: #ffffff;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #000000;
+            margin-bottom: 10px;
+            margin-top: 80px;
+        }
+
+        header p {
+            font-size: 1.5em;
+            font-style: bold;
+            color: #ffffff;
+            font-weight: bolder;
+        }
+
+        main {
+            max-width: 800px;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        section h2 {
+            font-size: 1.8em;
+            color: #000000;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+
+        section p {
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            font-size: 1em;
+            color: #333;
+            padding: 8px;
+            background-color: #f7f7f7;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        ul li strong {
+            color: #007acc;
+            margin-right: 8px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        /* Animação de hover nos itens da lista */
+        ul li:hover {
+            background-color: #e0f7ff;
+            transition: 0.3s;
+        }
+
+        .menu-fixo {
+            position: fixed;
+            /* Fixa o menu no topo */
+            top: 0;
+            left: 0;
+            /* Garante que o menu comece à esquerda */
+            width: 100%;
+            height: 80px;
+            padding: 10px 20px;
+            background-color: rgba(52, 58, 64, 0.8);
+            /* Translucidez inicial */
+            backdrop-filter: blur(5px);
+            /* Desfoque de fundo */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* Espaçamento entre os itens do menu */
+            z-index: 10;
+        }
+
+        .menu-fixo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            padding: 10px 20px;
+            background-color: rgba(52, 58, 64, 0.8);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .pokedex-gif {
+            width: 100px;
+            height: auto;
+            margin-right: 5px;
+            margin-left: 10px;
+        }
+
+        .menu a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        .menu a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgba(244, 255, 92, 0.979);
+            /* Translucidez inicial */
+            color: rgb(0, 0, 0);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            /* Borda delicada */
+            border-radius: 5px;
+            /* Bordas arredondadas para um visual mais suave */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* Leve sombra para destacar */
+            transform: scale(1.1);
+            /* Aumenta o tamanho do item */
+            transition: background-color 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s, transform 0.3s;
+            /* Suaviza a transição */
+        }
+
+        /* Estilos para o dropdown */
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 17px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 24px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            margin-top: -2px;
+            border-radius: 5px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            float: none;
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-size: 17px;
+            width: 200px;
+            height: 40px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1187c6;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            border-radius: 5px;
+        }
+
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: #007bff;
+            transform: scaleX(0);
+            transition: transform 1.5s ease;
+            z-index: 20;
+        }
+
+        .loading {
+            transform: scaleX(1);
+        }
+
+        .button1 {
+
+            color: #333;
+            background-color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-fixo">
+        <div class="menu-logo" id="loading-link">
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/029b8bd9-cb5a-41e4-9c7e-ee516face9bb/dayo3ow-7ac86c31-8b2b-4810-89f2-e6134caf1f2d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAyOWI4YmQ5LWNiNWEtNDFlNC05YzdlLWVlNTE2ZmFjZTliYlwvZGF5bzNvdy03YWM4NmMzMS04YjJiLTQ4MTAtODlmMi1lNjEzNGNhZjFmMmQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ooubhxjHp9PIMhVxvCFHziI6pxDAS8glXPWenUeomWs"
+                alt="Gif de Pokébola girando" class="pokedex-gif">
+        </div>
+
+        <div class="menu">
+            <div class="dropdown">
+                <button class="dropbtn">Home</button>
+                <div class="dropdown-content">
+                    <a href="#" class="button1 " onclick="startLoading('index.html')">Pesquisa Pokémon</a>
+                    <a href="#" class="button1 " onclick="startLoading('escolhaquiz.html')">Quiz</a>
+                    <a href="#" class="button1 " onclick="startLoading('informaçoes.html')">informações</a>
+                </div>
+            </div>
+            <a href="#" class="button2 " onclick="startLoading('contato.html')">Contato</a>
+            <a href="#" class="button2 " onclick="startLoading('quemsomosnos.html')">Quem somos</a>
+
+        </div>
+    </div>
+    <div class="loading-bar" id="loading-bar"></div>
+
+    <header>
+        <h1>Informações sobre Pokémon</h1>
+        <p>Aprenda mais sobre o mundo dos Pokémon, suas habilidades, tipos, evoluções e curiosidades!</p>
+    </header>
+
+    <main>
+        <!-- Seção de Introdução -->
+        <section id="introducao">
+            <h2>Introdução:</h2>
+            <p>Pokémon são criaturas que habitam o mundo do anime, jogos e quadrinhos, com habilidades e tipos variados.
+                Cada Pokémon tem uma natureza e habilidades únicas que o tornam especial.</p>
+        </section>
+
+        <!-- Seção de Tipos -->
+        <section id="tipos">
+            <h2>Tipos de Pokémon:</h2>
+            <p>Existem diversos tipos de Pokémon, cada um com suas vantagens e desvantagens. Aqui estão alguns exemplos:
+            </p>
+            <ul>
+                <li><strong>Fogo:</strong> Fortes contra Pokémon de Planta e Gelo, mas fracos contra Água e Pedra.</li>
+                <li><strong>Água:</strong> Fortes contra Fogo e Pedra, mas fracos contra Elétrico e Planta.</li>
+                <li><strong>Elétrico:</strong> Fortes contra Água e Voador, mas fracos contra Terra.</li>
+                <li><strong>Planta:</strong> Fortes contra Água e Terra, mas fracos contra Fogo e Gelo.</li>
+            </ul>
+        </section>
+
+        <!-- Seção de Evoluções -->
+        <section id="evolucoes">
+            <h2>Evoluções de Pokémon:</h2>
+            <p>Alguns Pokémon podem evoluir para formas mais poderosas. Evoluir significa que o Pokémon adquire novas
+                habilidades e um aumento em seus atributos.</p>
+            <ul>
+                <li><strong>Charmander </strong> evolui para &nbsp; <strong> Charmeleon</strong> e depois para &nbsp;
+                    <strong>Charizard</strong>.
+                </li>
+                <li><strong>Squirtle</strong> evolui para &nbsp; <strong> Wartortle</strong> e depois para &nbsp;
+                    <strong>Blastoise</strong>.
+                </li>
+                <li><strong>Bulbasaur</strong> evolui para &nbsp; <strong> Ivysaur</strong> e depois para &nbsp;
+                    <strong>Venusaur</strong>.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Seção de Habilidades -->
+        <section id="habilidades">
+            <h2>Habilidades dos Pokémon:</h2>
+            <p>Os Pokémon possuem habilidades que podem ajudar em batalhas e em diferentes situações. Aqui estão algumas
+                habilidades comuns:</p>
+            <ul>
+                <li><strong>Intimidar:</strong> Reduz o ataque do oponente ao entrar em batalha.</li>
+                <li><strong>Levitar:</strong> Torna o Pokémon imune a ataques do tipo Terra.</li>
+                <li><strong>Chama:</strong> Aumenta o poder de ataques de fogo quando o Pokémon está com pouca vida.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Seção de Curiosidades -->
+        <section id="curiosidades">
+            <h2>Curiosidades:</h2>
+            <ul>
+                <li>O primeiro Pokémon criado foi o Rhydon, e não o Pikachu.</li>
+                <li>Arceus é considerado o "Deus" dos Pokémon, sendo o criador do universo Pokémon.</li>
+                <li>A franquia Pokémon é uma das mais lucrativas do mundo, com jogos, animes, e muito mais.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Pokédex. Todos os direitos reservados.</p>
+    </footer>
+    <script>
+        document.getElementById('loading-link').addEventListener('click', function () {
+            window.location.href = 'loadinginf.html'; // Redireciona para loading.html ao clicar na div
+        });
+    </script>
+    <script>
+        function startLoading(quizUrl) {
+            // Exibe a barra de carregamento
+            const loadingBar = document.getElementById('loading-bar');
+            loadingBar.classList.add('loading');
+
+            // Redireciona após 3 segundo
+            setTimeout(() => {
+                window.location.href = quizUrl;
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Pokémon</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon"
+        href="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/029b8bd9-cb5a-41e4-9c7e-ee516face9bb/dayo3ow-7ac86c31-8b2b-4810-89f2-e6134caf1f2d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAyOWI4YmQ5LWNiNWEtNDFlNC05YzdlLWVlNTE2ZmFjZTliYlwvZGF5bzNvdy03YWM4NmMzMS04YjJiLTQ4MTAtODlmMi1lNjEzNGNhZjFmMmQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ooubhxjHp9PIMhVxvCFHziI6pxDAS8glXPWenUeomWs">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("fundoquiz.jpeg");
+            background-size: cover;
+            /* Cobre toda a área disponível */
+            background-position: center;
+            /* Centraliza a imagem */
+            flex-direction: column;
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 100px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .quiz-container h2 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        .quiz-container img {
+            width: 200px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .option {
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+
+        .option.correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .option.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .option.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .score {
+            margin-top: 15px;
+            font-size: 20px;
+            color: #ffcc00;
+        }
+
+        .pokemon-info-card {
+            display: none;
+            background-color: #e0f7fa;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            text-align: left;
+            width: 400px;
+            color: #00796b;
+        }
+
+        .pokemon-info-card h3 {
+            font-size: 1.5em;
+            color: #004d40;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .pokemon-info-card .info-item {
+            display: flex;
+            align-items: center;
+            font-size: 1em;
+            margin: 8px 0;
+            padding: 8px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-icon {
+            margin-right: 8px;
+            color: #00796b;
+            font-size: 1.2em;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .menu-fixo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            padding: 10px 20px;
+            background-color: rgba(52, 58, 64, 0.8);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .pokedex-gif {
+            width: 100px;
+            height: auto;
+            margin-right: 5px;
+            margin-left: 10px;
+        }
+
+        .menu a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        .menu a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgba(244, 255, 92, 0.979);
+            /* Translucidez inicial */
+            color: rgb(0, 0, 0);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            /* Borda delicada */
+            border-radius: 5px;
+            /* Bordas arredondadas para um visual mais suave */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* Leve sombra para destacar */
+            transform: scale(1.1);
+            /* Aumenta o tamanho do item */
+            transition: background-color 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s, transform 0.3s;
+            /* Suaviza a transição */
+        }
+
+        /* Estilos para o dropdown */
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 17px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 24px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            margin-top: -2px;
+            border-radius: 5px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            float: none;
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-size: 17px;
+            width: 200px;
+            height: 40px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1187c6;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            border-radius: 5px;
+        }
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: #007bff;
+            transform: scaleX(0);
+            transition: transform 1.5s ease;
+            z-index: 20;
+        }
+
+        .loading {
+            transform: scaleX(1);
+        }
+
+        .button1 {
+
+            color: #333;
+            background-color: #333;
+        }
+    </style>
+    <!-- Link para o Font Awesome para exibir ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="menu-fixo">
+        <div class="menu-logo" id="loading-link">
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/029b8bd9-cb5a-41e4-9c7e-ee516face9bb/dayo3ow-7ac86c31-8b2b-4810-89f2-e6134caf1f2d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAyOWI4YmQ5LWNiNWEtNDFlNC05YzdlLWVlNTE2ZmFjZTliYlwvZGF5bzNvdy03YWM4NmMzMS04YjJiLTQ4MTAtODlmMi1lNjEzNGNhZjFmMmQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ooubhxjHp9PIMhVxvCFHziI6pxDAS8glXPWenUeomWs"
+                alt="Gif de Pokébola girando" class="pokedex-gif">
+        </div>
+
+        <div class="menu">
+            <div class="dropdown">
+                <button class="dropbtn">Home</button>
+                <div class="dropdown-content">
+                    <a href="#" class="button1 " onclick="startLoading('index.html')">Pesquisa Pokémon</a>
+                    <a href="#" class="button1 " onclick="startLoading('escolhaquiz.html')">Quiz</a>
+                    <a href="#" class="button1 " onclick="startLoading('informaçoes.html')">informações</a>
+                </div>
+            </div>
+            <a href="#" class="button2 " onclick="startLoading('contato.html')">Contato</a>
+            <a href="#" class="button2 " onclick="startLoading('quemsomosnos.html')">Quem somos</a>
+
+        </div>
+    </div>
+    <div class="loading-bar" id="loading-bar"></div>
+
+    <div class="quiz-container" id="quiz">
+        <h2>Quem é esse Pokémon?</h2>
+        <img id="quiz-pokemon-image" src="" alt="Imagem do Pokémon para adivinhar">
+        <div class="options-container" id="quiz-options">
+            <!-- Opções de resposta serão inseridas aqui -->
+        </div>
+        <div class="score" id="quiz-score">Pontuação: 0</div>
+        <div class="button-container">
+            <button onclick="generatePokemon()">Pular Pokémon</button>
+        </div>
+    </div>
+
+    <div class="pokemon-info-card" id="pokemon-info">
+        <h3 id="pokemon-name"></h3>
+        <div class="info-item">
+            <i class="fas fa-bolt info-icon"></i>
+            <span>Tipo: <span id="pokemon-type"></span></span>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-ruler-vertical info-icon"></i>
+            <span>Altura: <span id="pokemon-height"></span> m</span>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-weight-hanging info-icon"></i>
+            <span>Peso: <span id="pokemon-weight"></span> kg</span>
+        </div>
+    </div>
+
+
+    <script>
+        let currentPokemon;
+        let score = 0;
+        let allPokemonNames = [];
+        let hasAnswered = false;
+
+        // Função para carregar a lista de Pokémon
+        async function loadPokemonNames() {
+            const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=898');
+            const data = await response.json();
+            allPokemonNames = data.results.map(pokemon => pokemon.name);
+            generatePokemon();
+        }
+
+        // Função para gerar um Pokémon aleatório
+        function generatePokemon() {
+            hasAnswered = false;
+            const randomId = Math.floor(Math.random() * 898) + 1;
+            fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`)
+                .then(response => response.json())
+                .then(data => {
+                    currentPokemon = data.name.toLowerCase();
+                    document.getElementById('quiz-pokemon-image').src = data.sprites.front_default;
+                    document.getElementById('pokemon-info').style.display = 'none';
+                    generateOptions();
+                });
+        }
+
+        // Função para gerar opções de resposta
+        function generateOptions() {
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+            const correctOption = currentPokemon.charAt(0).toUpperCase() + currentPokemon.slice(1);
+
+            const incorrectOptions = allPokemonNames.filter(name => name !== currentPokemon);
+            const shuffledIncorrectOptions = incorrectOptions.sort(() => 0.5 - Math.random()).slice(0, 3);
+            const options = [correctOption, ...shuffledIncorrectOptions.map(name => name.charAt(0).toUpperCase() + name.slice(1))];
+
+            options.sort(() => Math.random() - 0.5);
+
+            options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerText = option;
+                optionElement.onclick = () => checkAnswer(optionElement, option === correctOption);
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        // Função para verificar a resposta
+        function checkAnswer(element, isCorrect) {
+            if (hasAnswered) return;
+
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => option.classList.add('disabled'));
+            hasAnswered = true;
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                score++;
+                document.getElementById('quiz-score').innerText = `Pontuação: ${score}`;
+            } else {
+                element.classList.add('incorrect');
+            }
+
+            displayPokemonInfo();
+        }
+
+        // Função para exibir as informações do Pokémon
+        function displayPokemonInfo() {
+            fetch(`https://pokeapi.co/api/v2/pokemon/${currentPokemon}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('pokemon-name').innerText = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+                    document.getElementById('pokemon-type').innerText = data.types.map(typeInfo => typeInfo.type.name).join(', ');
+                    document.getElementById('pokemon-weight').innerText = (data.weight / 10).toFixed(1);
+                    document.getElementById('pokemon-height').innerText = (data.height / 10).toFixed(1);
+                    document.getElementById('pokemon-info').style.display = 'block';
+                });
+        }
+
+        // Carrega a lista de Pokémon ao carregar a página
+        window.onload = loadPokemonNames;
+    </script>
+    <script>
+        document.getElementById('loading-link').addEventListener('click', function () {
+            window.location.href = 'loadingquizfacil.html'; // Redireciona para loading.html ao clicar na div
+        });
+    </script>
+    <script>
+        function startLoading(quizUrl) {
+            // Exibe a barra de carregamento
+            const loadingBar = document.getElementById('loading-bar');
+            loadingBar.classList.add('loading');
+
+            // Redireciona após 3 segundo
+            setTimeout(() => {
+                window.location.href = quizUrl;
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

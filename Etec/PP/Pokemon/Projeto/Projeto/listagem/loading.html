@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra de Carregamento</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon"
+        href="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/029b8bd9-cb5a-41e4-9c7e-ee516face9bb/dayo3ow-7ac86c31-8b2b-4810-89f2-e6134caf1f2d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAyOWI4YmQ5LWNiNWEtNDFlNC05YzdlLWVlNTE2ZmFjZTliYlwvZGF5bzNvdy03YWM4NmMzMS04YjJiLTQ4MTAtODlmMi1lNjEzNGNhZjFmMmQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ooubhxjHp9PIMhVxvCFHziI6pxDAS8glXPWenUeomWs">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>🌟 Carregando... 🌟</h1>
+
+    <div class="loading-container">
+        <div class="loading-bar" id="loading-bar"></div>
+        <div class="inner-loading-bar" id="inner-loading-bar"></div>
+        <img src="pikachu.gif" alt="Pokémon" class="pokemon" id="pokemon">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingBar = document.getElementById('loading-bar');
+            const innerLoadingBar = document.getElementById('inner-loading-bar');
+            const pokemon = document.getElementById('pokemon');
+
+            // Inicia a animação da barra de carregamento
+            loadingBar.style.width = '100%';
+            innerLoadingBar.style.width = '100%'; // Animação da barra interna
+
+            // Redireciona para index.html após 4 segundos
+            setTimeout(() => {
+                // Opcional: remova o Pokémon após a animação (se necessário)
+                pokemon.style.display = 'none';
+                window.location.href = 'index.html'; // Redireciona para index.html
+            }, 4100); // 4 segundos
+        });
+    </script>
+</body>
+
+</html>
